@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class DokumenController extends Controller
 {
@@ -15,24 +16,33 @@ class DokumenController extends Controller
     {
         $level = Auth::user()->level;
         $id = Auth::user()->id;
+        $user = User::select('level', 'nama')->get();
         if ($level === 'siswa') {
-            $dokumen = Dokumen::where('siswa_id', $id)->orderBy('id', 'desc')->paginate(10);
+            $dokumen = Dokumen::with('kategori')->where('siswa_id', $id)->orderBy('id', 'desc')->paginate(10);
         } else {
-            $dokumen = Dokumen::orderBy('id', 'desc')->paginate(10);
+            $dokumen = Dokumen::with('kategori')->orderBy('id', 'desc')->paginate(10);
         }
-        return view('dokumen.index', compact('dokumen', 'level'));
+        return view('dokumen.index', compact('dokumen', 'level', 'user'));
     }
 
     public function create()
     {
         $kategori = Kategori::all();
         $siswa = User::where('level', 'siswa')->get();
-        return view('dokumen.add', ['kategori' => $kategori, 'siswa' => $siswa]);
+        $user = User::select('level')->distinct()->get();
+        return view('dokumen.add', ['kategori' => $kategori, 'siswa' => $siswa, 'user' => $user]);
     }
 
     public function store(Request $request)
     {
-        $str_random = Str::random('15');
+        $date = Carbon::now()->format('Ymd');
+        $curr_id = Dokumen::max('id');
+        if ($curr_id == null) {
+            $curr_id = 0;
+        }
+        $curr_id++;
+
+        $no_file = 'DOC_' . $date . '_' . str_pad($curr_id, 4, '0', STR_PAD_LEFT);
         $request->validate([
             'kategori' => ['required', 'string'],
             'nama' => ['required', 'string'],
@@ -45,11 +55,9 @@ class DokumenController extends Controller
         $file->storeAs('dokumen', $filename);
 
         Dokumen::create([
-            'no' => $str_random,
+            'no' => $no_file,
             'nama' => $request->nama,
             'kategori_id' => $request->kategori,
-            'user_id' => Auth::user()->id,
-            'siswa_id' => $request->siswa,
             'deskripsi' => $request->deskripsi,
             'file' => $filename
         ]);

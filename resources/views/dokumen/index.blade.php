@@ -21,7 +21,7 @@
                 <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Search everywhere..." class="input">
               </form>
             </div>
-            @if($level === 'guru' || $level === 'pegawai' || $level === 'kepala sekolah' || $level === 'tata usaha')
+            @if($level === 'guru' || $level === 'pegawai' || $level === 'kepala sekolah' || $level === 'tata usaha' || $level === 'admin')
               <a href="{{ route('dokumen.create') }}" class="bg-blue-500 hover:bg-blue-700 text-white p-2 border border-blue-700 rounded">Tambah Data</a>
             @endif
           </header>
@@ -45,6 +45,7 @@
               <tbody>
                 @if(count($dokumen) > 0)
                   @foreach($dokumen as $dok)
+                  @if(dd($dok))
                     <tr>
                       <td data-label="No">{{ $dokumen->perPage() * ($dokumen->currentPage() - 1) + $loop->index + 1 }}</td>
                       <td data-label="No">{{ $dok->no }}</td>
@@ -52,7 +53,7 @@
                       <td data-label="Kategori">{{ $dok->kategori->nama }}</td>
                       <td data-label="Upload">{{ \Carbon\Carbon::parse($dok->created_at)->diffForHumans() }}</td>
                       <td data-label="Update">{{ \Carbon\Carbon::parse($dok->updated_at)->diffForHumans() }}</td>
-                      <td data-label="Admin">{{ $dok->user->nama }}</td>
+                      <td data-label="Admin">{{ $dok->nama }}</td>
                       <td data-label="File">
                           <span class="mdi mdi-file-pdf-box" style="color:red; font-size: 2em;"></span>
                           <p class="truncate">{{ $dok->file }}</p>
@@ -77,6 +78,14 @@
                         </div>
                       </td>
                     </tr>
+                    @else
+                    <tr>
+                      <td colspan="9" class="text-center font-bold py-14">
+                        <span class="icon text-4xl"><i class="mdi mdi-alert-circle"></i></span>
+                        <h1>Tidak ada data dokumen</h1>
+                      </td>
+                    </tr>
+                  @endif
                   @endforeach
                 @else
                   <tr>

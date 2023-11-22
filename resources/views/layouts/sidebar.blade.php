@@ -61,7 +61,7 @@
             </li>
             @endif
 
-            @if (Auth::user()->level === 'kepala sekolah' || Auth::user()->level === 'siswa' || Auth::user()->level === 'guru' || Auth::user()->level === 'pegawai' || Auth::user()->level === 'tata usaha')
+            @if (Auth::user()->level === 'kepala sekolah' || Auth::user()->level === 'siswa' || Auth::user()->level === 'guru' || Auth::user()->level === 'pegawai' || Auth::user()->level === 'tata usaha' || Auth::user()->level === 'admin')
             <li class="{{ (request()->is('dokumen*')) ? 'active' : '' }}">
                 <a href="{{ route('dokumen.index') }}">
                     <span class="icon"><i class="mdi mdi-file-document"></i></span>

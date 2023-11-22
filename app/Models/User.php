@@ -59,6 +59,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function dokumen()
     {
-        return $this->hasMany(Dokumen::class);
+        return $this->belongsToMany(Dokumen::class);
     }
 }

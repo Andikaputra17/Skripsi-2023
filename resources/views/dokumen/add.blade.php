@@ -39,6 +39,15 @@
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="deskripsi" name="deskripsi" type="text" placeholder="Deskripsi">
                 </div>
                 <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="deskripsi">
+                        Tampilkan Untuk
+                    </label>
+                    @foreach($user as $usr)
+                        <input type="checkbox" value="{{ $usr->level }}" name="checkbox_dokumen">
+                        <label>{{ $usr->level }}</label>
+                    @endforeach
+                </div>
+                <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                         File
                     </label>

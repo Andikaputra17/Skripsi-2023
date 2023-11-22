@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Sistem Arsip SDN 22 Dauh Puri'),
 
     /*
     |--------------------------------------------------------------------------

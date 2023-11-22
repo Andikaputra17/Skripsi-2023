@@ -2,7 +2,7 @@
     <section class="section main-section">
         <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
 
-            @if ($level === 'admin')
+            @if ($level === 'admin' || $level === 'kepala sekolah')
             <div class="card">
                 <div class="card-content">
                     <div class="flex items-center justify-between">
@@ -68,7 +68,7 @@
             </div>
             @endif
 
-            @if ($level === 'siswa' || $level === 'guru')
+            @if ($level === 'siswa' || $level === 'guru'  || $level === 'kepala sekolah')
             <div class="card">
                 <div class="card-content">
                     <div class="flex items-center justify-between">
@@ -86,7 +86,7 @@
             </div>
             @endif
 
-            @if ($level === 'guru' || $level === 'admin')
+            @if ($level === 'guru' || $level === 'admin' || $level === 'kepala sekolah')
             <div class="card">
                 <div class="card-content">
                     <div class="flex items-center justify-between">
@@ -104,7 +104,7 @@
             </div>
             @endif
 
-            @if ($level === 'kepala sekolah' || $level === 'siswa' || $level === 'guru' || $level === 'pegawai' || $level === 'tata usaha')
+            @if ($level === 'kepala sekolah' || $level === 'siswa' || $level === 'guru' || $level === 'pegawai' || $level === 'tata usaha' || $level === 'admin')
             <div class="card">
                 <div class="card-content">
                     <div class="flex items-center justify-between">

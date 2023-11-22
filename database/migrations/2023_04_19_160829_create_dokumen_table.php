@@ -16,8 +16,6 @@ return new class extends Migration
             $table->string('no')->unique();
             $table->string('nama');
             $table->integer('kategori_id');
-            $table->integer('user_id');
-            $table->integer('siswa_id')->nullable();
             $table->string('deskripsi');
             $table->string('file');
             $table->timestamps();

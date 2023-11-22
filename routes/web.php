@@ -77,7 +77,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/kategori/destroy/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
     });
 
-    Route::middleware(['auth', 'level:siswa,guru,pegawai,kepala sekolah,tata usaha'])->group(function() {
+    Route::middleware(['auth', 'level:siswa,guru,pegawai,kepala sekolah,tata usaha,admin'])->group(function() {
         Route::get('/dokumen', [DokumenController::class, 'index'])->name('dokumen.index');
         Route::get('/dokumen/search', [DokumenController::class, 'search'])->name('dokumen.search');
         Route::get('/dokumen/add', [DokumenController::class, 'create'])->name('dokumen.create');
